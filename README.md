@@ -5,7 +5,7 @@
 [![Dependency Status][daviddm-image]][daviddm-url]
 [![Code Climate][codeclimate-image]][codeclimate-url]
 
-Proxy Generic Email Provider for Mandrill.com.
+Proxy Generic Email Provider for Mandrillapp.com.
 
 ## Install
 

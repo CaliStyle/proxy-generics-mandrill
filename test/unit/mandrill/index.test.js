@@ -18,9 +18,22 @@ describe('Email Generic Mandrill', () => {
 
   it('should send email', (done) => {
     EmailGenericService.send({
-
+      subject: 'Hello World',
+      html: '<h1>Hello World</h1>',
+      to: [
+        {
+          email: 'example@example.com',
+          name: 'Test Receiver'
+        }
+      ],
+      from: {
+        email: 'example@cali-style.com',
+        name: 'Test Sender'
+      }
     }, Mandrill)
       .then(response => {
+        assert.equal(response[0].email, 'example@example.com')
+        assert.equal(response[0].status, 'sent')
         done()
       })
       .catch(err => {
