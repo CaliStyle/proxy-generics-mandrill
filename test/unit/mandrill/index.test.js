@@ -42,7 +42,19 @@ describe('Email Generic Mandrill', () => {
   })
   it('should send email template', (done) => {
     EmailGenericService.sendTemplate({
-
+      subject: 'Hello World',
+      to: [
+        {
+          email: 'example@example.com',
+          name: 'Test Receiver'
+        }
+      ],
+      from: {
+        email: 'example@cali-style.com',
+        name: 'Test Sender'
+      },
+      template_name: 'test',
+      template_content: {}
     }, Mandrill)
       .then(response => {
         done()

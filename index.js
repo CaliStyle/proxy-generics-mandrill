@@ -96,7 +96,49 @@ module.exports = class ProxyGenericsMandrill {
   }
 
   sendTemplate(data) {
-    return Promise.resolve([])
+    return new Promise((resolve, reject) => {
+      const mandrillMessageSchema = {
+        subject: data.subject,
+        to: data.to.map(person => {
+          return {
+            email: person.email,
+            name: person.name,
+            type: 'to'
+          }
+        }),
+        from_email: data.from.email,
+        from_name: data.from.name
+      }
+      if (data.global_merge_vars) {
+        mandrillMessageSchema.global_merge_vars = data.global_merge_vars
+      }
+      if (data.recipient_metadata) {
+        mandrillMessageSchema.recipient_metadata = data.recipient_metadata
+      }
+      // Add the Defaults
+      const messageContent = _.defaults(mandrillMessageSchema, this._baseMessage(data))
+      const templateContent = _.defaults(data.template_content || {}, this._baseTemplateContent(data))
+
+      // Construct the Mandrill Message
+      // Construct the Mandrill Message
+      const params = {
+        'template_name': data.template_name,
+        'template_content': templateContent, // fill all mc:edit
+        'message': messageContent
+      }
+      // Send Message
+      this.mandrill().messages.sendTemplate(params, function(res) {
+        const proxySchema = res.map(response => {
+          return {
+            email: response.email,
+            status: response.status
+          }
+        })
+        return resolve(proxySchema)
+      }, function(err) {
+        return reject(err)
+      })
+    })
   }
 }
 
