@@ -1,6 +1,6 @@
 {
   "name": "proxy-generics-mandrill",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Proxy Generic mandrillapp.com",
   "homepage": "https://cali-style.com",
   "author": {
@@ -29,7 +29,7 @@
     "mocha": "^2.4.5",
     "smokesignals": "v2-latest",
     "supertest": "^2.0.1",
-    "trailpack-proxy-generics": "^0.0.15",
+    "trailpack-proxy-generics": "^0.0.16",
     "trails": "v2-latest"
   },
   "scripts": {
